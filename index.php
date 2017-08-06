@@ -59,9 +59,7 @@
 
         <!-- Jumbotron -->
         <div class="jumbotron">
-            <h1>Marketing stuff!</h1>
-            <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
-            <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>
+            <h3>Marketing stuff!</h3>
         </div>
         
         <div class="row">
@@ -124,69 +122,16 @@
     </div>
     <!-- /.modal -->
 
-
-    <?php
-    require 'connection.php';
-
-    // define how many results you want per page
-    $results_per_page = 3;
-
-    $sql = "SELECT * FROM products";
-
-    if(!$result = mysqli_query($link, $sql)) {
-        json_encode(['status'=>'Error', 'msg'=>'Query failed']);
-        exit();
-    }
-    $number_of_results = mysqli_num_rows($result);
-
-    // determine number of total pages available
-    $number_of_pages = ceil($number_of_results/$results_per_page);
-
-    // determine which page number visitor is currently on
-    if (!isset($_GET['page'])) {
-        $page = 1;
-    } else {
-        $page = $_GET['page'];
-    }
-
-    // determine the sql LIMIT starting number for the results on the displaying page
-
-    $this_page_first_result = ($page-1)*$results_per_page;
-
-    // retrieve selected results from database and display them on page
-
-    $sql='SELECT * FROM products LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
-
-    $result = mysqli_query($link, $sql);
-
-
-    // display the links to the pages
-
-    for ($page=1;$page<=$number_of_pages;$page++) {
-        echo '<a href="index.php?page=' . $page . '">' . $page . '</a> ';
-    }
-
-
-
-
-
-    ?>
-
-
     <div class="container">
-        <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li class="active"><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-        </ul>
+        <?php
+        require 'pagination.php';
+        ?>
+
     </div>
+
     <!-- /container -->
 
-
-
-
+    <!--First - jQuery, Second - Bootstrap-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
